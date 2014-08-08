@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="${qshurick}" id="${module} path routine" runOnChange="true">
+        <sql endDelimiter="#">
+            drop function if exists get_path_by_id
+            #
+            create function get_path_by_id (key_id bigint) returns text deterministic
+            begin
+                declare p_path text;
+                declare p_part text;
+                declare p_parent bigint (11);
+                declare p_current bigint (11);
+                set p_current = key_id;
+                set p_path = '';
+                while p_current is not null do
+                    select parent_id, title into p_parent, p_part from registry_items where id = p_current;
+                    if p_path is null or p_path = '' then
+                        set p_path = p_part;
+                    else
+                        set p_path = concat(p_part, '/', p_path);
+                    end if;
+                    set p_current = p_parent;
+                end while;
+                return p_path;
+            end
+            #
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
