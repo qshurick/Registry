@@ -13,7 +13,7 @@ use Registry\Exception\ValueValidationException;
 
 /**
  * Class TypeValue
- * @package Register\Entity
+ * @package Registry\Entity
  * @ORM\Entity
  * @ORM\Table(name="registry_type_values")
  */

@@ -13,12 +13,25 @@ return array(
     //     'adapter' => '\Registry\Adapter\Doctrine'
     // ),
 
-    'listener' => array(
+    /*'listeners' => array(
         'Register\Launcher'
     ),
     'service_manager' => array(
         'invokables' => array(
             'Register\Launcher' => 'Register\Launcher'
+        )
+    ),*/
+
+    'doctrine' => array(
+        'driver' => array(
+            'application_entities' => array(
+                'paths' => array(__DIR__ . '/../src/Adapter/Doctrine/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Registry\Adapter\Doctrine\Entity' => 'application_entities'
+                )
+            )
         )
     ),
 

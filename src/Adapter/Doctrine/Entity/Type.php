@@ -14,7 +14,7 @@ use Logger\Logger;
 
 /**
  * Class Type
- * @package Register\Entity
+ * @package Registry\Entity
  * @ORM\Entity
  * @ORM\Table(name="registry_types")
  */
